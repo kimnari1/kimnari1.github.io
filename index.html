@@ -309,7 +309,7 @@ a.bl-paper-title:hover{color:var(--bl-accent,#2a4a7a);}
 
   /* ── Sidebar compact ── */
   .sidebar{
-    width:100%;height:auto;position:static;
+    width:100%;height:auto;position:sticky;top:0;z-index:40;background:#fff;
     padding:20px 16px 16px;
     border-right:none;border-bottom:1px solid #ebebeb;
   }
@@ -1085,7 +1085,7 @@ a.pop-title:hover{color:#4a6e9a;text-decoration:underline;}
   /* SIDEBAR → top strip */
   .sidebar{
     width:100%;
-    position:static;
+    position:sticky;top:0;z-index:40;background:#fff;
     height:auto;
     overflow:visible;
     padding:20px 20px 16px;
@@ -1160,8 +1160,8 @@ a.pop-title:hover{color:#4a6e9a;text-decoration:underline;}
   /* SERVICE: show full photos instead of cropping them */
   .service-panel__hero{aspect-ratio:auto;}
   .service-panel__hero img{height:auto;object-fit:contain;}
-  .service-panel__thumbs{flex-direction:column;}
-  .service-panel__thumbs img{height:auto;width:100%;object-fit:contain;}
+  .service-panel__thumbs{flex-direction:row;gap:8px;}
+  .service-panel__thumbs img{height:120px;width:100%;object-fit:cover;}
   .service-panel__posters{flex-direction:column;}
   .service-panel__posters img{height:auto;width:100%;}
 }
