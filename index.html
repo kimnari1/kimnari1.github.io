@@ -1323,9 +1323,6 @@ a.pop-title:hover{color:#4a6e9a;text-decoration:underline;}
   #pg-home .about-intro a{color:#1a8a55;text-decoration:none;}
   #pg-home .about-intro a:hover{text-decoration:underline;text-underline-offset:2px;}
   #pg-home .about-intro strong{font-weight:700;color:#1a1a1a;}
-  #pg-home .about-q{font-size:19px;color:#555;font-style:italic;line-height:1.6;margin:30px 0 16px;}
-  #pg-home .about-caret{display:inline-block;color:#555;font-style:normal;margin-left:1px;animation:aboutBlink 1.05s step-end infinite;}
-  @keyframes aboutBlink{50%{opacity:0;}}
   #pg-home .about-cols{display:grid;grid-template-columns:0.9fr 1.1fr 1fr;gap:32px;margin-top:40px;}
   #pg-home .about-eyebrow{font-family:"Source Sans 3",sans-serif;font-size:14.75px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:14px;}
   #pg-home .about-interest{font-size:17px;color:#1a1a1a;line-height:1.5;margin-bottom:11px;}
@@ -1372,7 +1369,6 @@ a.pop-title:hover{color:#4a6e9a;text-decoration:underline;}
     <p>Michigan State University</p>
   </div>
   <p class="about-intro">I am a Ph.D. candidate in the <a href="https://sls.msu.edu/" target="_blank">Second Language Studies</a> program at Michigan State University, advised by <a href="https://scholar.google.com/citations?user=2dNNWN8AAAAJ&hl=en" target="_blank">Dr. Peter I. De Costa</a>. My research examines how students&rsquo; and teachers&rsquo; <strong>emotions</strong> and <strong>investments</strong> shape language learning and teaching in the age of <strong>AI</strong>, with a particular focus on building more <strong>inclusive language classrooms</strong>. I am particularly interested in the structural tensions between classroom realities and broader social forces, examining why <strong>research-informed approaches</strong> often struggle to translate into <strong>practice</strong>. My work draws on classroom-based qualitative inquiry, narrative approaches, discourse analysis, and participatory design to address questions at the intersection of language education and human agency.</p>
-  <p class="about-q"><span id="aboutTyped"></span><span class="about-caret">|</span></p>
   <div class="about-cols">
     <div class="about-col">
       <div class="about-eyebrow">Interests</div>
@@ -2913,7 +2909,6 @@ function goPage(id){
   document.getElementById('pg-'+id).classList.add('on');
   var _el2=document.getElementById('nl-'+id);if(_el2)_el2.classList.add('on');
   window.scrollTo(0,0);
-  if(id==='home'&&window.typeAboutQ)window.typeAboutQ();
   if(id==='publications') renderPresentations();
   if(id==='research') blRenderPanel(_currentStrand);
   if(id==='publications'){
@@ -3169,26 +3164,6 @@ document.addEventListener('DOMContentLoaded', function(){ blRenderPanel('methodo
     var chip = e.target.closest && e.target.closest('.chip[data-tip]');
     if(chip) attachChip(chip);
   });
-})();
-</script>
-<script>
-(function(){
-  var Q="How is AI reshaping what we teach, how we teach, and who gets to belong in the language classroom?";
-  var t=null;
-  window.typeAboutQ=function(){
-    var el=document.getElementById('aboutTyped'); if(!el) return;
-    if(t)clearTimeout(t); el.textContent=''; var i=0, mode='type';
-    (function step(){
-      if(mode==='type'){
-        el.textContent=Q.slice(0,i); i++;
-        if(i>Q.length){ mode='hold'; t=setTimeout(step,1800); return; }
-        t=setTimeout(step,34);
-      } else if(mode==='hold'){ mode='erase'; t=setTimeout(step,30); }
-      else { i--; el.textContent=Q.slice(0,i); if(i<=0){ mode='type'; t=setTimeout(step,520); return; } t=setTimeout(step,16); }
-    })();
-  };
-  if(document.readyState!=='loading') window.typeAboutQ();
-  else document.addEventListener('DOMContentLoaded', window.typeAboutQ);
 })();
 </script>
 <script>
