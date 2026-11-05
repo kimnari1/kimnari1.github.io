@@ -1125,6 +1125,9 @@ a.pop-title:hover{color:#4a6e9a;text-decoration:underline;}
 .rev-since{font-weight:400;color:#888;font-size:.9em;}
 .review-list ul{list-style:circle;margin:6px 0 0;padding-left:22px;}
 .review-list ul li{margin-bottom:3px;line-height:1.4;}
+.sr-badge{position:relative;outline:none;}
+.sr-tip{position:fixed;top:0;left:0;width:300px;max-width:calc(100vw - 24px);background:#f1f2f4;color:#333;border:1px solid #d6d8dc;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.10);padding:10px 12px;font-family:"Source Sans 3",sans-serif;font-size:14px;font-weight:400;font-style:normal;line-height:1.45;text-align:left;opacity:0;visibility:hidden;transition:opacity .12s,visibility .12s;z-index:9999;pointer-events:none;}
+.sr-tip.show{opacity:1;visibility:visible;}
 .service-panel__posters{display:flex;gap:12px;background:#fff;padding:16px;margin-top:auto;}
 .service-panel__posters img{flex:1;width:50%;height:120px;object-fit:contain;background:#fff;border:1px solid var(--svc-border);border-radius:7px;padding:6px;}
 .service-panel--wide{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:8px;background:#fff;border:1px solid var(--svc-border);border-radius:12px;overflow:hidden;transition:box-shadow .2s;}
@@ -2241,7 +2244,7 @@ a.pop-title:hover{color:#4a6e9a;text-decoration:underline;}
               <li>Language &amp; Education</li>
               <li>Language Policy</li>
               <li>System</li>
-              <li>Foreign Language Annals</li>
+              <li>Foreign Language Annals <b class="sr-badge" tabindex="0" style="font-family:'Source Sans 3',sans-serif;font-size:.9rem;color:#1a8a55;font-weight:700;font-style:italic;">(Super Reviewer)<span class="sr-tip" role="tooltip">Received ACTFL&rsquo;s 2026&ndash;2027 Super Reviewer designation for high-quality, kind, and timely peer reviews that provide actionable steps for authors to improve their work.</span></b></li>
               <li>TASK</li>
               <li>Educational Review</li>
               <li>Educational Studies</li>
@@ -3342,6 +3345,28 @@ document.addEventListener('DOMContentLoaded', function(){ blRenderPanel('methodo
     if (k === 'F12') { e.preventDefault(); return; }
     if ((e.ctrlKey || e.metaKey) && (k === 'u' || k === 'U')) { e.preventDefault(); return; }
     if ((e.ctrlKey || e.metaKey) && e.shiftKey && (k === 'i' || k === 'I' || k === 'j' || k === 'J' || k === 'c' || k === 'C')) { e.preventDefault(); return; }
+  });
+})();
+</script>
+<script>
+(function(){
+  document.querySelectorAll('.sr-badge').forEach(function(badge){
+    var tip=badge.querySelector('.sr-tip'); if(!tip) return;
+    document.body.appendChild(tip);
+    function place(x,y){
+      var w=tip.offsetWidth,h=tip.offsetHeight,vw=window.innerWidth,vh=window.innerHeight;
+      var left=x-w/2, top=y+20;
+      if(left+w>vw-12) left=vw-12-w;
+      if(left<12) left=12;
+      if(top+h>vh-12) top=Math.max(12,y-h-10);
+      tip.style.left=left+'px'; tip.style.top=top+'px';
+    }
+    badge.addEventListener('mousemove',function(e){place(e.clientX,e.clientY);});
+    badge.addEventListener('mouseenter',function(e){place(e.clientX,e.clientY);tip.classList.add('show');});
+    badge.addEventListener('mouseleave',function(){tip.classList.remove('show');});
+    badge.addEventListener('focus',function(){var r=badge.getBoundingClientRect();place(r.left+r.width/2,r.bottom-12);tip.classList.add('show');});
+    badge.addEventListener('blur',function(){tip.classList.remove('show');});
+    window.addEventListener('scroll',function(){if(document.activeElement!==badge) tip.classList.remove('show');},{passive:true});
   });
 })();
 </script>
